@@ -1,0 +1,15 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /opt/waf/logs/error_log/*.log
+output.kafka:
+  codec.format:
+    string: '%{[message]}'
+  hosts: ["192.168.1.166:9092"]
+  topic: filebeat
+  partition.round_robin:
+    reachable_only: false
+  required_acks: 1
+  compression: gzip
+  max_message_bytes: 1000000
