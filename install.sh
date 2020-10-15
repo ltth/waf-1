@@ -25,10 +25,8 @@ cp httpd.service /etc/systemd/system/
 groupadd www
 useradd apache2 -g www --no-create-home --shell /sbin/nologin
 
-
 mv /usr/local/apache2/conf/httpd.conf /usr/local/apache2/conf/httpd.con.bak
 cp httpd.conf /usr/local/apache2/conf/
-
 
 mkdir /opt/waf
 mkdir /opt/waf/logs
@@ -53,22 +51,13 @@ cd /usr/local/apache2/conf && \
 cd /root/waf/
 cp template.vhosts.conf /usr/local/apache2/conf/sites-enabled
 
-
-
 cp v3.3.0.tar.gz /usr/local/src/
 tar -zxvf /usr/local/src/v3.3.0.tar.gz -C /usr/local/src && \
 	mv /usr/local/src/coreruleset-3.3.0 /opt/waf/crs-rules && \
 	cp /opt/waf/crs-rules/crs-setup.conf.example /opt/waf/crs-rules/crs-setup.conf
-
-
 
 rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
 cp elastic.repo /etc/yum.repos.d/
 yum install filebeat -y && \
 	mv /etc/filebeat/filebeat.yml /etc/filebeat/filebeat.yml.bak
 cp filebeat.yml /etc/filebeat/
-
-
-python3 -m pip install --upgrade pip
-python3 -m pip install python-multipart uvicorn fastapi
-export LC_ALL=en_US.UTF-8
